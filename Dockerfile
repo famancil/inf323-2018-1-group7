@@ -1,5 +1,8 @@
 FROM python:3.5-alpine
 
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
 # Copy in your requirements file
 ADD requirements.txt /requirements.txt
 
@@ -27,7 +30,9 @@ RUN set -ex \
                     | sort -u \
     )" \
     && apk add --virtual .python-rundeps $runDeps \
-    && apk del .build-deps
+    && apk del .build-deps \
+    && apk add --no-cache --virtual .build-deps postgresql-client
+
 
 # Copy your application code to the container (make sure you create a .dockerignore file if any large files or directories should be excluded)
 RUN mkdir /code/
