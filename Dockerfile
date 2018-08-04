@@ -1,4 +1,4 @@
-FROM python:2.7.5
+FROM python:3.5-alpine
 
 # Copy in your requirements file
 ADD requirements.txt /requirements.txt
@@ -47,7 +47,7 @@ ENV UWSGI_VIRTUALENV=/venv UWSGI_WSGI_FILE=my_project/wsgi.py UWSGI_HTTP=:8000 U
 RUN  /venv/bin/python manage.py collectstatic --noinput
 
 # Start uWSGI
-ENTRYPOINT ["/code/docker-entrypoint.sh"]
+#ENTRYPOINT ["/code/docker-entrypoint.sh"]
 
 # Start uWSGI
 CMD ["/venv/bin/uwsgi", "--http-auto-chunked", "--http-keepalive"]
