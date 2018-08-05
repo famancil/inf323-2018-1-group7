@@ -3,16 +3,18 @@ version: '2'
 services:
   db:
     environment:
-      POSTGRES_DB: djangodb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: django_db
+      POSTGRES_USER: django_user
+      POSTGRES_PASSWORD: django_pass
+    volumes:
+       - /root/postgres_dbdata:/var/lib/postgresql/data
     restart: always
-    image: postgres:9.2.23
+    image: postgres:9.6
     expose:
       - "5432"
   app:
     environment:
-      DATABASE_URL: postgres://postgres:postgres@db/djangodb
+      DATABASE_URL: postgres://django_user:django_pass@db/django_db
       DJANGO_MANAGEPY_MIGRATE: "on"
     build:
       context: .
