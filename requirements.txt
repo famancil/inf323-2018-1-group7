@@ -2,5 +2,3 @@ Django==1.11.15
 uwsgi
 psycopg2
 dj-database-url
-boto3
-django-storages
